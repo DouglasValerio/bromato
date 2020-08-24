@@ -704,19 +704,19 @@
             backgroundColor: ["#ff6384", "#cc65fe"],
             type: "doughnut"
           }, {
-            labels: ["PB"],
+            labels: ["FDN"],
             data: [50, 50],
             type: "doughnut"
           }, {
-            labels: ["FDA"],
+            labels: ["Amido"],
             data: [10, 90],
             type: "doughnut"
           }, {
-            labels: ["FDN"],
+            labels: ["NDT"],
             data: [75, 25],
             type: "doughnut"
           }, {
-            labels: ["NDT"],
+            labels: ["Produção de Leite"],
             data: [30, 70],
             type: "doughnut"
           }, {
