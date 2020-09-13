@@ -498,11 +498,13 @@ function ChartsComponent_div_0_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](chart_r44.labels[0]);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("current", ctx_r43.data[i_r45])("max", ctx_r43.max)("color", "#45ccce")("background", "#eaeaea")("radius", 80)("stroke", 20)("semicircle", false)("rounded", true)("clockwise", false)("responsive", false)("duration", 800)("animation", "easeInOutQuart")("animationDelay", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("current", ctx_r43.data[i_r45])("max", ctx_r43.max)("color", ctx_r43.returnIndex(i_r45))("background", "#eaeaea")("radius", 80)("stroke", 20)("semicircle", false)("rounded", true)("clockwise", false)("responsive", false)("duration", 800)("animation", "easeInOutQuart")("animationDelay", 0);
 } }
 class ChartsComponent {
     constructor() {
         this.data = [];
+        this.colors = null;
+        this.possibleColors = ["#ff0000", "#bdbf21", "#53d46c", "#076e01"];
         this.charts = [
             {
                 labels: ["MS"],
@@ -552,10 +554,123 @@ class ChartsComponent {
         this.current = 25;
         this.max = 100;
     }
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.colors);
+    }
+    returnIndex(index) {
+        let color = "";
+        switch (index) {
+            case 0:
+                color = this.colorMs(this.data[index]);
+                break;
+            case 1:
+                color = this.colorFDN(this.data[index]);
+                break;
+            case 2:
+                color = this.colorAmido(this.data[index]);
+                break;
+            case 3:
+                color = this.colorNDT(this.data[index]);
+                break;
+            case 4:
+                color = this.colorLeite(this.data[index]);
+                break;
+            case 5:
+                color = this.colorKPS(this.data[index]);
+                break;
+            default:
+                color = "#33333";
+                break;
+        }
+        return color;
+    }
+    colorMs(value) {
+        if (value <= 24 || value > 45) {
+            return this.possibleColors[0];
+        }
+        if ((value > 24 && value < 27) || (value >= 38 && value <= 41)) {
+            return this.possibleColors[1];
+        }
+        if ((value >= 27 && value < 30) || (value >= 35 && value < 38)) {
+            return this.possibleColors[2];
+        }
+        else {
+            return this.possibleColors[3];
+        }
+    }
+    colorFDN(value) {
+        if (value >= 46) {
+            return this.possibleColors[0];
+        }
+        if (value >= 40 && value < 46) {
+            return this.possibleColors[1];
+        }
+        if (value >= 35 && value < 40) {
+            return this.possibleColors[2];
+        }
+        else {
+            return this.possibleColors[3];
+        }
+    }
+    colorAmido(value) {
+        if (value <= 29) {
+            return this.possibleColors[0];
+        }
+        if (value > 29 && value <= 35) {
+            return this.possibleColors[1];
+        }
+        if (value > 35 && value <= 40) {
+            return this.possibleColors[2];
+        }
+        else {
+            return this.possibleColors[3];
+        }
+    }
+    colorNDT(value) {
+        if (value < 68) {
+            return this.possibleColors[0];
+        }
+        if (value >= 68 && value < 71) {
+            return this.possibleColors[1];
+        }
+        if (value >= 71 && value <= 74) {
+            return this.possibleColors[2];
+        }
+        else {
+            return this.possibleColors[3];
+        }
+    }
+    colorKPS(value) {
+        if (value < 55) {
+            return this.possibleColors[0];
+        }
+        if (value >= 55 && value < 60) {
+            return this.possibleColors[1];
+        }
+        if (value >= 60 && value < 65) {
+            return this.possibleColors[2];
+        }
+        else {
+            return this.possibleColors[3];
+        }
+    }
+    colorLeite(value) {
+        if (value < 1.43) {
+            return this.possibleColors[0];
+        }
+        if (value >= 1.43 && value < 1.55) {
+            return this.possibleColors[1];
+        }
+        if (value >= 1.55 && value < 1.65) {
+            return this.possibleColors[2];
+        }
+        else {
+            return this.possibleColors[3];
+        }
+    }
 }
 ChartsComponent.ɵfac = function ChartsComponent_Factory(t) { return new (t || ChartsComponent)(); };
-ChartsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ChartsComponent, selectors: [["charts"]], inputs: { data: "data" }, decls: 1, vars: 1, consts: [["class", "wrapper", "style", "width: fit-content; position: relative;", 4, "ngFor", "ngForOf"], [1, "wrapper", 2, "width", "fit-content", "position", "relative"], [1, "value", 2, "text-align", "center", "transform", "translateY(130px)"], [1, "title"], [3, "current", "max", "color", "background", "radius", "stroke", "semicircle", "rounded", "clockwise", "responsive", "duration", "animation", "animationDelay"]], template: function ChartsComponent_Template(rf, ctx) { if (rf & 1) {
+ChartsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ChartsComponent, selectors: [["charts"]], inputs: { data: "data", colors: "colors" }, decls: 1, vars: 1, consts: [["class", "wrapper", "style", "width: fit-content; position: relative", 4, "ngFor", "ngForOf"], [1, "wrapper", 2, "width", "fit-content", "position", "relative"], [1, "value", 2, "text-align", "center", "transform", "translateY(130px)"], [1, "title"], [3, "current", "max", "color", "background", "radius", "stroke", "semicircle", "rounded", "clockwise", "responsive", "duration", "animation", "animationDelay"]], template: function ChartsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ChartsComponent_div_0_Template, 6, 15, "div", 0);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.charts);
@@ -568,6 +683,8 @@ ChartsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
                 styleUrls: ["./charts.component.css"],
             }]
     }], function () { return []; }, { data: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }], colors: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }] }); })();
 
@@ -608,7 +725,7 @@ function FormComponent_div_4_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("data", ctx_r0.kpiArray);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("data", ctx_r0.kpiArray)("colors", ctx_r0.colorIndex);
 } }
 const _c0 = function (a0) { return { "hidden-peneiras": a0 }; };
 function FormComponent_form_6_Template(rf, ctx) { if (rf & 1) {
@@ -794,7 +911,7 @@ function FormComponent_ng_container_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "div", 35);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](13, "charts", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](13, "charts", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
@@ -810,8 +927,8 @@ function FormComponent_ng_container_8_Template(rf, ctx) { if (rf & 1) {
 } }
 function FormComponent_div_9_Template(rf, ctx) { if (rf & 1) {
     const _r31 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_9_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r31); const ctx_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); ctx_r30.firstView = !ctx_r30.firstView; return ctx_r30.formView = !ctx_r30.formView; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -824,12 +941,12 @@ function FormComponent_div_9_Template(rf, ctx) { if (rf & 1) {
 const _c1 = function (a0) { return { disabled: a0 }; };
 function FormComponent_div_10_Template(rf, ctx) { if (rf & 1) {
     const _r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 40);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_10_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r33); const ctx_r32 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); ctx_r32.formView = !ctx_r32.formView; ctx_r32.emitArray(); return ctx_r32.viewReport = true; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Calcular ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "button", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_10_Template_button_click_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r33); const ctx_r34 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); ctx_r34.formView = !ctx_r34.formView; return ctx_r34.firstView = true; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, " P\u00E1gina Inicial ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -841,8 +958,8 @@ function FormComponent_div_10_Template(rf, ctx) { if (rf & 1) {
 } }
 function FormComponent_div_11_Template(rf, ctx) { if (rf & 1) {
     const _r36 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_11_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r36); const ctx_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); ctx_r35.formView = true; return ctx_r35.viewReport = false; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Voltar ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -850,8 +967,8 @@ function FormComponent_div_11_Template(rf, ctx) { if (rf & 1) {
 } }
 function FormComponent_div_12_Template(rf, ctx) { if (rf & 1) {
     const _r38 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_12_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r38); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r37.generatePdf(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Gerar PDF");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -859,8 +976,8 @@ function FormComponent_div_12_Template(rf, ctx) { if (rf & 1) {
 } }
 function FormComponent_div_13_Template(rf, ctx) { if (rf & 1) {
     const _r40 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_13_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r40); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r39.viewReport = true; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Visualizar laudo ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -868,8 +985,8 @@ function FormComponent_div_13_Template(rf, ctx) { if (rf & 1) {
 } }
 function FormComponent_div_14_Template(rf, ctx) { if (rf & 1) {
     const _r42 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function FormComponent_div_14_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r42); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r41.formView = !ctx_r41.formView; });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Calcular novamente ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -893,6 +1010,8 @@ class FormComponent {
         this.name = "";
         this.sample = "";
         this.kpiArray = [];
+        this.possibleColors = ["#ff0000", "#bdbf21", "#53d46c", "#076e01"];
+        this.colorIndex = 1;
         this.validArray = [
             {
                 filled: true,
@@ -1439,13 +1558,13 @@ class FormComponent {
     }
 }
 FormComponent.ɵfac = function FormComponent_Factory(t) { return new (t || FormComponent)(); };
-FormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: FormComponent, selectors: [["form-bromato"]], decls: 15, vars: 10, consts: [[1, "form-container", "bg-red"], [1, "form-sub-container"], [1, "welcome"], ["class", "graph-container", "style", "margin-bottom: 30px", 4, "ngIf"], [1, "form-fields", "form-group"], ["action", "", 4, "ngIf"], [4, "ngIf"], ["class", "button-wrapper", 4, "ngIf"], ["class", "button-wrapper btn-wrapper", 4, "ngIf"], [1, "graph-container", 2, "margin-bottom", "30px"], [3, "data"], ["action", ""], ["for", "input-1"], ["value", "name", "ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Nome", 1, "form-control", 3, "change"], ["ngModel", "", "value", "sample", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Amostra", 1, "form-control", 3, "change"], [1, "test-container"], [3, "checked", "change"], ["for", "input-1", 3, "ngClass"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Peneira 1", 1, "form-control", 3, "ngClass", "change"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Peneira 2", 1, "form-control", 3, "ngClass", "change"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Peneira 3", 1, "form-control", 3, "ngClass", "change"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Valor Fundo", 1, "form-control", 3, "ngClass", "change"], [1, "title-container"], ["class", "name-container", 4, "ngIf"], [4, "ngFor", "ngForOf"], [1, "name-container"], ["class", "alert alert-danger", "style", "font-size: 12px; color: red", 4, "ngIf"], ["ngModel", "", "name", "input", "required", "", "type", "number", "max", "100", "min", "0", 1, "form-control", 3, "placeholder", "change"], ["input", "ngModel"], [1, "alert", "alert-danger", 2, "font-size", "12px", "color", "red"], [1, "report", 2, "display", "flex", "flex-direction", "column"], [1, "badge"], [1, "report-content", 2, "margin", "auto", "margin-bottom", "40px"], [2, "text-align", "center"], ["style", "text-align: center", 4, "ngIf"], [1, "graph-report"], [1, "button-wrapper"], [1, "button", 3, "click"], [1, "button-wrapper", "btn-wrapper"], [1, "button", 3, "ngClass", "click"]], template: function FormComponent_Template(rf, ctx) { if (rf & 1) {
+FormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: FormComponent, selectors: [["form-bromato"]], decls: 15, vars: 10, consts: [[1, "form-container", "bg-red"], [1, "form-sub-container"], [1, "welcome"], ["class", "graph-container", "style", "margin-bottom: 30px", 4, "ngIf"], [1, "form-fields", "form-group"], ["action", "", 4, "ngIf"], [4, "ngIf"], ["class", "button-wrapper", 4, "ngIf"], ["class", "button-wrapper btn-wrapper", 4, "ngIf"], [1, "graph-container", 2, "margin-bottom", "30px"], [3, "data", "colors"], ["action", ""], ["for", "input-1"], ["value", "name", "ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Nome", 1, "form-control", 3, "change"], ["ngModel", "", "value", "sample", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Amostra", 1, "form-control", 3, "change"], [1, "test-container"], [3, "checked", "change"], ["for", "input-1", 3, "ngClass"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Peneira 1", 1, "form-control", 3, "ngClass", "change"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Peneira 2", 1, "form-control", 3, "ngClass", "change"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Peneira 3", 1, "form-control", 3, "ngClass", "change"], ["ngModel", "", "name", "input", "required", "", "type", "text", "max", "100", "min", "0", "placeholder", "Valor Fundo", 1, "form-control", 3, "ngClass", "change"], [1, "title-container"], ["class", "name-container", 4, "ngIf"], [4, "ngFor", "ngForOf"], [1, "name-container"], ["class", "alert alert-danger", "style", "font-size: 12px; color: red", 4, "ngIf"], ["ngModel", "", "name", "input", "required", "", "type", "number", "max", "100", "min", "0", 1, "form-control", 3, "placeholder", "change"], ["input", "ngModel"], [1, "alert", "alert-danger", 2, "font-size", "12px", "color", "red"], [1, "report", 2, "display", "flex", "flex-direction", "column"], [1, "badge"], [1, "report-content", 2, "margin", "auto", "margin-bottom", "40px"], [2, "text-align", "center"], ["style", "text-align: center", 4, "ngIf"], [1, "graph-report"], [3, "data"], [1, "button-wrapper"], [1, "button", 3, "click"], [1, "button-wrapper", "btn-wrapper"], [1, "button", 3, "ngClass", "click"]], template: function FormComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Bromato App");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, FormComponent_div_4_Template, 2, 1, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, FormComponent_div_4_Template, 2, 2, "div", 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, FormComponent_form_6_Template, 27, 25, "form", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, FormComponent_form_7_Template, 4, 2, "form", 5);
