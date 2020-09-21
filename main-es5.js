@@ -1750,7 +1750,48 @@
           key: "generatePdf",
           value: function generatePdf() {
             var documentDefinition = {
-              content: ["Resumo - Amostra: " + this.sample + " - - - - - - - - - - - - - - - - - - - - -  Solicitante: " + this.name, "- - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - ", "Valor do MS: " + this.kpiArray[0], "Valor do FDN: " + this.kpiArray[1], "Valor do Amido: " + this.kpiArray[2], "Valor do NDT: " + this.kpiArray[3], "Produção de Leite: " + this.kpiArray[4], "Valor do KPS: " + this.kpiArray[5], "", "", "", "Silagem Tipo: " + this.letterGrade, "Nota Final: " + this.finalGrade, "", "Nota de Processamento: " + (this.processGrade ? this.processGrade : " Nota não calculada")]
+              // "Resumo - Amostra: " +
+              //   this.sample +
+              //   " - - - - - - - - - - - - - - - - - - - - -  Solicitante: " +
+              //   this.name,
+              // "- - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - ",
+              // "Valor do MS: " + this.kpiArray[0],
+              // "Valor do FDN: " + this.kpiArray[1],
+              // "Valor do Amido: " + this.kpiArray[2],
+              // "Valor do NDT: " + this.kpiArray[3],
+              // "Produção de Leite: " + this.kpiArray[4],
+              // "Valor do KPS: " + this.kpiArray[5],
+              // "",
+              // "",
+              // "",
+              // "Silagem Tipo: " + this.letterGrade,
+              // "Nota Final: " + this.finalGrade,
+              // "",
+              // "Nota de Processamento: " +
+              //   (this.processGrade ? this.processGrade : " Nota não calculada"),
+              content: [[{
+                text: "NOME DO SOLICITANTE: " + this.name,
+                bold: true,
+                alignment: "center",
+                lineHeight: 2
+              }], [{
+                text: "AMOSTRA: " + this.sample,
+                bold: true,
+                alignment: "center",
+                lineHeight: 2
+              }], [""], [], {
+                layout: "lightHorizontalLines",
+                table: {
+                  // headers are automatically repeated if the table spans over multiple pages
+                  // you can declare how many rows should be treated as headers
+                  headerRows: 1,
+                  widths: [200, 100, 150],
+                  body: [["Parâmetro", "Valor", "Ideal (%)"], ["MS", this.kpiArray[0], "30 a 35"], ["FDN", this.kpiArray[1], "<35"], ["Amido", this.kpiArray[2], ">40"], ["NDT", this.kpiArray[3], ">74"], ["Produção de Leite", this.kpiArray[4], ">1,65 ton L/ton MS "], ["KPS", this.kpiArray[5], ">70"], ["Peneira 1", this.peneira1 ? this.peneira1 : "-", "3 a 8"], ["Peneira 2", this.peneira2 ? this.peneira2 : "-", "45 a 75"], ["Peneira 3", this.peneira3 ? this.peneira3 : "-", "20 a 30"], ["Fundo", this.valorFundo ? this.valorFundo : "-", "<10"], ["Silagem Tipo", this.letterGrade, "A"], ["Nota de processamento", this.processGrade ? this.processGrade : "-", "10"], [{
+                    text: "NOTA TOTAL",
+                    bold: true
+                  }, this.finalGrade, "100"]]
+                }
+              }]
             };
             pdfmake_build_pdfmake__WEBPACK_IMPORTED_MODULE_1___default.a.createPdf(documentDefinition).open();
           }
